@@ -7,6 +7,7 @@ import DataStructuresList from './pages/DataStructuresList';
 import AlgorithmsList from './pages/AlgorithmsList';
 import DataStructureDetail from './pages/DataStructureDetail';
 import AlgorithmDetail from './pages/AlgorithmDetail';
+import ProblemDetail from './pages/ProblemDetail';
 
 function App() {
   const { theme } = useAppStore();
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/data-structures" element={<DataStructuresList />} />
           <Route path="/data-structures/:id" element={<DataStructureDetail />} />
+          <Route path="/data-structures/:dataStructureId/problems/:problemId" element={<ProblemDetail />} />
           <Route path="/algorithms" element={<AlgorithmsList />} />
           <Route path="/algorithms/:id" element={<AlgorithmDetail />} />
         </Routes>

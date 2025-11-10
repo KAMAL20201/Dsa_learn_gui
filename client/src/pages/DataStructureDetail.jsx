@@ -1,11 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Clock, TrendingUp, Info, BookOpen } from 'lucide-react';
 import { dataStructures } from '../data/dataStructures';
-import { codeExamples } from '../data/codeExamples';
 import { getProblemsByDataStructure } from '../data/problems';
-import ArrayVisualizer from '../components/visualizations/ArrayVisualizer';
-import StepByStepLinkedListVisualizer from '../components/visualizations/StepByStepLinkedListVisualizer';
-import CodeTabs from '../components/ui/CodeTabs';
 import ProblemsList from '../components/ProblemsList';
 
 const DataStructureDetail = () => {
@@ -27,14 +23,6 @@ const DataStructureDetail = () => {
       </div>
     );
   }
-
-  // Map data structure IDs to their visualizer components
-  const visualizers = {
-    array: ArrayVisualizer,
-    'linked-list': StepByStepLinkedListVisualizer,
-  };
-
-  const VisualizerComponent = visualizers[id];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -116,22 +104,6 @@ const DataStructureDetail = () => {
           </div>
         </div>
 
-        {/* Visualization Section */}
-        {VisualizerComponent ? (
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Interactive Step-by-Step Visualization
-            </h2>
-            <VisualizerComponent />
-          </div>
-        ) : (
-          <div className="mb-8 bg-yellow-50 dark:bg-yellow-900/30 rounded-xl p-6 text-center">
-            <p className="text-yellow-800 dark:text-yellow-200">
-              Visualization for {ds.name} coming soon!
-            </p>
-          </div>
-        )}
-
         {/* Practice Problems Section */}
         {problems.length > 0 && (
           <div className="mb-8">
@@ -147,22 +119,6 @@ const DataStructureDetail = () => {
             <ProblemsList problems={problems} dataStructureId={id} />
           </div>
         )}
-
-        {/* Code Examples Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Implementation Examples
-          </h2>
-          {codeExamples.dataStructures[id] ? (
-            <CodeTabs codeExamples={codeExamples.dataStructures[id]} />
-          ) : (
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
-              <p className="text-gray-600 dark:text-gray-400">
-                Code examples for {ds.name} coming soon!
-              </p>
-            </div>
-          )}
-        </div>
 
         {/* Additional Information */}
         <div className="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-6">
