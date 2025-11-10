@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Moon, Sun, Menu, X, Home } from 'lucide-react';
 import { useAppStore } from '../../stores/appStore';
 
 const Navbar = () => {
@@ -7,44 +8,39 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md border-b border-gray-200 dark:border-gray-700">
+    <nav className="bg-white dark:bg-gray-800 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Link to="/" className="flex-shrink-0">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all">
                 DSA Visualizer
               </h1>
-            </div>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            <a
-              href="#array"
+            <Link
+              to="/"
+              className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              <Home size={18} />
+              Home
+            </Link>
+            <Link
+              to="/data-structures"
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
-              Arrays
-            </a>
-            <a
-              href="#linked-list"
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              Data Structures
+            </Link>
+            <Link
+              to="/algorithms"
+              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
-              Linked Lists
-            </a>
-            <a
-              href="#trees"
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              Trees
-            </a>
-            <a
-              href="#graphs"
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              Graphs
-            </a>
+              Algorithms
+            </Link>
 
             {/* Theme Toggle */}
             <button
@@ -84,34 +80,28 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a
-              href="#array"
+            <Link
+              to="/"
+              className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Home size={18} />
+              Home
+            </Link>
+            <Link
+              to="/data-structures"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Arrays
-            </a>
-            <a
-              href="#linked-list"
+              Data Structures
+            </Link>
+            <Link
+              to="/algorithms"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Linked Lists
-            </a>
-            <a
-              href="#trees"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Trees
-            </a>
-            <a
-              href="#graphs"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Graphs
-            </a>
+              Algorithms
+            </Link>
           </div>
         </div>
       )}
