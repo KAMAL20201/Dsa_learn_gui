@@ -3,7 +3,7 @@ import { ArrowLeft, Clock, TrendingUp, Info } from 'lucide-react';
 import { dataStructures } from '../data/dataStructures';
 import { codeExamples } from '../data/codeExamples';
 import ArrayVisualizer from '../components/visualizations/ArrayVisualizer';
-import LinkedListVisualizer from '../components/visualizations/LinkedListVisualizer';
+import StepByStepLinkedListVisualizer from '../components/visualizations/StepByStepLinkedListVisualizer';
 import CodeTabs from '../components/ui/CodeTabs';
 
 const DataStructureDetail = () => {
@@ -28,7 +28,7 @@ const DataStructureDetail = () => {
   // Map data structure IDs to their visualizer components
   const visualizers = {
     array: ArrayVisualizer,
-    'linked-list': LinkedListVisualizer,
+    'linked-list': StepByStepLinkedListVisualizer,
   };
 
   const VisualizerComponent = visualizers[id];
@@ -117,11 +117,9 @@ const DataStructureDetail = () => {
         {VisualizerComponent ? (
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Interactive Visualization
+              Interactive Step-by-Step Visualization
             </h2>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <VisualizerComponent />
-            </div>
+            <VisualizerComponent />
           </div>
         ) : (
           <div className="mb-8 bg-yellow-50 dark:bg-yellow-900/30 rounded-xl p-6 text-center">
