@@ -1,14 +1,17 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, TrendingUp, Info } from 'lucide-react';
+import { ArrowLeft, Clock, TrendingUp, Info, BookOpen } from 'lucide-react';
 import { dataStructures } from '../data/dataStructures';
 import { codeExamples } from '../data/codeExamples';
+import { getProblemsByDataStructure } from '../data/problems';
 import ArrayVisualizer from '../components/visualizations/ArrayVisualizer';
 import StepByStepLinkedListVisualizer from '../components/visualizations/StepByStepLinkedListVisualizer';
 import CodeTabs from '../components/ui/CodeTabs';
+import ProblemsList from '../components/ProblemsList';
 
 const DataStructureDetail = () => {
   const { id } = useParams();
   const ds = dataStructures.find((item) => item.id === id);
+  const problems = getProblemsByDataStructure(id);
 
   if (!ds) {
     return (
@@ -126,6 +129,22 @@ const DataStructureDetail = () => {
             <p className="text-yellow-800 dark:text-yellow-200">
               Visualization for {ds.name} coming soon!
             </p>
+          </div>
+        )}
+
+        {/* Practice Problems Section */}
+        {problems.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <BookOpen className="text-purple-500" size={28} />
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Practice Problems
+              </h2>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Master {ds.name} by solving these curated problems from easy to hard
+            </p>
+            <ProblemsList problems={problems} dataStructureId={id} />
           </div>
         )}
 
