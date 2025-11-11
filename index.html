@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Learning GUI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Data Structures & Algorithms Visualizer</h1>
+            <div class="algorithm-selector">
+                <label for="algorithm">Select Algorithm:</label>
+                <select id="algorithm">
+                    <option value="bubbleSort">Bubble Sort</option>
+                    <option value="selectionSort">Selection Sort</option>
+                    <option value="insertionSort">Insertion Sort</option>
+                    <option value="linearSearch">Linear Search</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Visualization Panel (LEFT) -->
+            <div class="visualization-panel">
+                <h2>Visualization</h2>
+                <div id="visualization" class="visualization-area">
+                    <!-- Algorithm visualization will be rendered here -->
+                </div>
+                <div class="array-input">
+                    <label for="arrayInput">Array:</label>
+                    <input type="text" id="arrayInput" placeholder="Enter numbers separated by commas" value="64, 34, 25, 12, 22, 11, 90">
+                    <button id="resetBtn">Reset</button>
+                </div>
+                <div class="controls">
+                    <button id="playBtn">Play</button>
+                    <button id="pauseBtn" disabled>Pause</button>
+                    <button id="stepBtn">Next Step</button>
+                    <button id="prevBtn">Previous Step</button>
+                    <button id="resetStepsBtn">Reset Steps</button>
+                </div>
+                <div class="speed-control">
+                    <label for="speedSlider">Speed:</label>
+                    <input type="range" id="speedSlider" min="100" max="2000" value="1000" step="100">
+                    <span id="speedValue">1000ms</span>
+                </div>
+                <div class="step-info">
+                    <p>Step: <span id="currentStep">0</span> / <span id="totalSteps">0</span></p>
+                    <p id="stepDescription">Click Play or Next Step to start</p>
+                </div>
+            </div>
+
+            <!-- Code Panel (RIGHT) -->
+            <div class="code-panel">
+                <h2>Code</h2>
+                <div class="code-container">
+                    <pre id="codeDisplay"><code id="codeContent"></code></pre>
+                </div>
+                <div class="explanation-panel">
+                    <h3>Current Action</h3>
+                    <p id="lineExplanation">Select an algorithm and start to see explanations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
