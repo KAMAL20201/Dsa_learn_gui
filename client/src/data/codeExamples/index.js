@@ -6,8 +6,8 @@
  */
 
 import { twoSumCode, twoSumVisualization } from './twoSum';
+import { threeSumCode, threeSumVisualization } from './threeSum';
 // Import more as you add them:
-// import { threeSum Code, threeSumVisualization } from './threeSum';
 // import { binarySearchCode, binarySearchVisualization } from './binarySearch';
 
 /**
@@ -15,7 +15,7 @@ import { twoSumCode, twoSumVisualization } from './twoSum';
  */
 export const codeRegistry = {
   'two-sum': twoSumCode,
-  // 'three-sum': threeSumCode,
+  'three-sum': threeSumCode,
   // 'binary-search': binarySearchCode,
   // ... add more problems here
 };
@@ -25,7 +25,7 @@ export const codeRegistry = {
  */
 export const visualizationRegistry = {
   'two-sum': twoSumVisualization,
-  // 'three-sum': threeSumVisualization,
+  'three-sum': threeSumVisualization,
   // 'binary-search': binarySearchVisualization,
   // ... add more problems here
 };

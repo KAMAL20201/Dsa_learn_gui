@@ -38,6 +38,40 @@ export const problems = {
       tags: ['Array', 'Hash Table']
     },
     {
+      id: 'three-sum',
+      title: '3Sum',
+      difficulty: 'medium',
+      popularity: 'Very Popular',
+      description: 'Find all unique triplets that sum to zero',
+      problem: 'Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. Notice that the solution set must not contain duplicate triplets.',
+      example: {
+        input: 'nums = [-1,0,1,2,-1,-4]',
+        output: '[[-1,-1,2],[-1,0,1]]',
+        explanation: 'The distinct triplets are [-1,0,1] and [-1,-1,2]. Notice that the order of the output and the order of the triplets does not matter.'
+      },
+      constraints: [
+        '3 <= nums.length <= 3000',
+        '-10⁵ <= nums[i] <= 10⁵'
+      ],
+      approaches: [
+        {
+          name: 'Brute Force',
+          timeComplexity: 'O(n³)',
+          spaceComplexity: 'O(1)',
+          description: 'Check every possible triplet'
+        },
+        {
+          name: 'Sorting + Two Pointers (Optimal)',
+          timeComplexity: 'O(n²)',
+          spaceComplexity: 'O(1) or O(n)',
+          description: 'Sort array, fix one element, use two pointers for the rest'
+        }
+      ],
+      visualizer: 'ThreeSumVisualizer',
+      leetcodeLink: 'https://leetcode.com/problems/3sum/',
+      tags: ['Array', 'Two Pointers', 'Sorting']
+    },
+    {
       id: 'best-time-stock',
       title: 'Best Time to Buy and Sell Stock',
       difficulty: 'easy',
