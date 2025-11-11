@@ -1,14 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, RotateCcw, ChevronLeft, ChevronRight, Check, X } from 'lucide-react';
 
-const TwoSumVisualizer = () => {
+const TwoSumVisualizer = ({ onStepChange }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [inputArray, setInputArray] = useState([2, 7, 11, 15]);
   const [targetValue, setTargetValue] = useState(9);
   const [customInput, setCustomInput] = useState('2,7,11,15');
   const [customTarget, setCustomTarget] = useState('9');
+
+  // Code line mappings for different languages
+  const getCodeLineMapping = (stepType, language = 'java') => {
+    const mappings = {
+      java: {
+        initialize: [1, 3],
+        loopStart: [6],
+        calculateComplement: [7],
+        checkComplement: [10],
+        found: [10, 11],
+        addToMap: [15],
+        noSolution: [19]
+      },
+      python: {
+        initialize: [0, 1],
+        loopStart: [3],
+        calculateComplement: [4],
+        checkComplement: [7],
+        found: [7, 8],
+        addToMap: [11],
+        noSolution: [14]
+      },
+      cpp: {
+        initialize: [1, 2],
+        loopStart: [5],
+        calculateComplement: [6],
+        checkComplement: [9],
+        found: [9, 10],
+        addToMap: [14],
+        noSolution: [18]
+      }
+    };
+
+    return mappings[language]?.[stepType] || [];
+  };
 
   // Generate steps for the Two Sum algorithm
   const generateSteps = (arr, target) => {
@@ -27,7 +62,8 @@ const TwoSumVisualizer = () => {
       found: false,
       result: null,
       highlightIndices: [],
-      codeExplanation: 'Initialize an empty hash map to store value -> index pairs'
+      codeExplanation: 'Initialize an empty hash map to store value -> index pairs',
+      codeLineType: 'initialize'
     });
 
     // Iterate through array
@@ -47,11 +83,12 @@ const TwoSumVisualizer = () => {
         found: false,
         result: null,
         highlightIndices: [i],
-        codeExplanation: `Calculate complement: ${target} - ${num} = ${complement}`
+        codeExplanation: `Calculate complement: ${target} - ${num} = ${complement}`,
+        codeLineType: 'calculateComplement'
       });
 
       // Step: Check if complement exists in hash map
-      if (hashMap.hasOwnProperty(complement)) {
+      if (Object.prototype.hasOwnProperty.call(hashMap, complement)) {
         const complementIndex = hashMap[complement];
 
         steps.push({
@@ -65,7 +102,8 @@ const TwoSumVisualizer = () => {
           found: true,
           result: [complementIndex, i],
           highlightIndices: [complementIndex, i],
-          codeExplanation: `Success! nums[${complementIndex}] + nums[${i}] = ${arr[complementIndex]} + ${num} = ${target}`
+          codeExplanation: `Success! nums[${complementIndex}] + nums[${i}] = ${arr[complementIndex]} + ${num} = ${target}`,
+          codeLineType: 'found'
         });
 
         // Final step
@@ -80,7 +118,8 @@ const TwoSumVisualizer = () => {
           found: true,
           result: [complementIndex, i],
           highlightIndices: [complementIndex, i],
-          codeExplanation: `Return [${complementIndex}, ${i}] as the answer`
+          codeExplanation: `Return [${complementIndex}, ${i}] as the answer`,
+          codeLineType: 'found'
         });
 
         return steps;
@@ -99,7 +138,8 @@ const TwoSumVisualizer = () => {
           found: false,
           result: null,
           highlightIndices: [i],
-          codeExplanation: `Add mapping: ${num} -> index ${i} to hash map for future lookups`
+          codeExplanation: `Add mapping: ${num} -> index ${i} to hash map for future lookups`,
+          codeLineType: 'addToMap'
         });
       }
     }
@@ -116,7 +156,8 @@ const TwoSumVisualizer = () => {
       found: false,
       result: null,
       highlightIndices: [],
-      codeExplanation: 'Completed iteration without finding a valid pair'
+      codeExplanation: 'Completed iteration without finding a valid pair',
+      codeLineType: 'noSolution'
     });
 
     return steps;
@@ -124,6 +165,20 @@ const TwoSumVisualizer = () => {
 
   const steps = isStarted ? generateSteps(inputArray, targetValue) : [];
   const stepData = steps[currentStep];
+
+  // Notify parent component when step changes
+  // Note: Only depend on currentStep. Depending on onStepChange identity would trigger a loop
+  // because parent recreates the callback on each render.
+  useEffect(() => {
+    if (onStepChange && stepData) {
+      onStepChange({
+        step: currentStep,
+        stepData: stepData,
+        getHighlightedLines: (language) => getCodeLineMapping(stepData.codeLineType, language)
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep]);
 
   const handleStart = () => {
     try {
