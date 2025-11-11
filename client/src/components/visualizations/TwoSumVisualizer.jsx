@@ -88,7 +88,7 @@ const TwoSumVisualizer = ({ onStepChange }) => {
       });
 
       // Step: Check if complement exists in hash map
-      if (hashMap.hasOwnProperty(complement)) {
+      if (Object.prototype.hasOwnProperty.call(hashMap, complement)) {
         const complementIndex = hashMap[complement];
 
         steps.push({
@@ -167,6 +167,8 @@ const TwoSumVisualizer = ({ onStepChange }) => {
   const stepData = steps[currentStep];
 
   // Notify parent component when step changes
+  // Note: Only depend on currentStep. Depending on onStepChange identity would trigger a loop
+  // because parent recreates the callback on each render.
   useEffect(() => {
     if (onStepChange && stepData) {
       onStepChange({
@@ -175,7 +177,8 @@ const TwoSumVisualizer = ({ onStepChange }) => {
         getHighlightedLines: (language) => getCodeLineMapping(stepData.codeLineType, language)
       });
     }
-  }, [currentStep, stepData, onStepChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep]);
 
   const handleStart = () => {
     try {
