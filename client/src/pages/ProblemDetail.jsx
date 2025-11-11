@@ -5,6 +5,7 @@ import { getProblemById, getDifficultyColor } from '../data/problems';
 import { dataStructures } from '../data/dataStructures';
 import TwoSumVisualizer from '../components/visualizations/TwoSumVisualizer';
 import CodeTabs from '../components/ui/CodeTabs';
+import SideBySideVisualization from '../components/visualizations/SideBySideVisualization';
 
 const ProblemDetail = () => {
   const { dataStructureId, problemId } = useParams();
@@ -318,8 +319,8 @@ var twoSum = function(nums, target) {
           </div>
         </motion.div>
 
-        {/* Interactive Visualization */}
-        {VisualizerComponent && (
+        {/* Interactive Visualization with Code Side-by-Side */}
+        {VisualizerComponent && problemCode && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -329,31 +330,17 @@ var twoSum = function(nums, target) {
             <div className="flex items-center gap-2 mb-4">
               <Code2 className="text-purple-500" size={28} />
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Interactive Visualization
+                Interactive Visualization & Implementation
               </h2>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Step through the algorithm to understand how it works
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Step through the algorithm and see the corresponding code execution highlighted in real-time
             </p>
-            <VisualizerComponent />
-          </motion.div>
-        )}
-
-        {/* Implementation Code */}
-        {problemCode && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mb-8"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Implementation Examples
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Here's how to implement the optimal solution in different languages
-            </p>
-            <CodeTabs codeExamples={problemCode} />
+            <SideBySideVisualization
+              VisualizationComponent={VisualizerComponent}
+              codeExamples={problemCode}
+              problemId={problemId}
+            />
           </motion.div>
         )}
 
